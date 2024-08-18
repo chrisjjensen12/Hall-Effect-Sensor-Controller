@@ -17,8 +17,8 @@
 #define MUX3_EN 7
 #define MUX4_EN 6
 
-#define SIG_PIN 5  // Check this to get the value of the sensor when selected
-#define SENSOR_THRESHOLD 500 // Threshold for determining if the sensor value is high
+#define SIG_PIN A0  // Check this to get the value of the sensor when selected
+#define SENSOR_THRESHOLD 10 // Threshold for determining if the sensor value is high
 
 ////////////////// LEDs
 
@@ -54,22 +54,22 @@ void setup() {
 
 void loop() {
   // Iterate through all 16 channels of the multiplexer
-  for (int channel = 0; channel < 16; channel++) {
-    selectChannel(channel);
+  for(int ch = 0; ch < 16; ch++){
+    selectChannel(ch);
     delay(10);  // Allow time for the channel to settle
     
     // Read the sensor value
     int sensorValue = analogRead(SIG_PIN);
     
-    // Print the channel and sensor value
-    Serial.print("Channel ");
-    Serial.print(channel);
-    Serial.print(": ");
-    Serial.println(sensorValue);
+    // // Print the channel and sensor value
+    // Serial.print("Channel ");
+    // Serial.print(ch);
+    // Serial.print(": ");
+    // Serial.println(sensorValue);
 
-    updateLed(channel, sensorValue);
+    updateLed(ch, sensorValue);
 
-    delay(500);  // Delay between readings for readability
+    //delay(200);  // Delay between readings for readability
   }
 }
 
@@ -77,7 +77,7 @@ void loop() {
 
 void updateLed(int ledIndex, int HESensorValue){
   // Check if the sensor value is high and update the corresponding LED
-  if (HESensorValue > SENSOR_THRESHOLD) {
+  if (HESensorValue < SENSOR_THRESHOLD) {
     strip.setPixelColor(ledIndex, strip.Color(255, 0, 0)); // Red
   } else {
     strip.setPixelColor(ledIndex, strip.Color(0, 0, 0)); // Off
