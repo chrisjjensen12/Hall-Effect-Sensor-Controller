@@ -3,7 +3,8 @@
 #include "Globals.h"  
 
 void initHallEffect(void);
-float readHallEffectSensor(uint8_t boardIndex);
+void readBoardState(void);
+bool readHallEffectSensor(uint8_t boardIndex);
 void selectChannel(uint8_t channel);
 float getSensorValue(void);
 

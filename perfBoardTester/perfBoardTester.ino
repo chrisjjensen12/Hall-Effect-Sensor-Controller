@@ -1,8 +1,6 @@
 #include "include/Globals.h"
 #include "include/HallEffect.h"
-
-// "Sig" pin which is where the sensor's value will come in on
-const int hallEffectSensorPin = 14; // A0
+#include "include/Display.h"
 
 void setup() {
   // Start the Serial Monitor
@@ -12,6 +10,12 @@ void setup() {
 }
 
 void loop() {
+
+  readBoardState();
+
+  printChessBoard();
+
+  delay(1000);
 
 }
 

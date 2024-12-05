@@ -28,7 +28,18 @@ void initHallEffect(void){
 
 }
 
-float readHallEffectSensor(uint8_t boardIndex){
+// reads the sensor state of the entire board 0-63
+void readBoardState(void){
+
+  for(int i = 0; i < NUM_HALL_EFFECT_SENSORS; i++){
+    chessBoard[i].pieceDetected = readHallEffectSensor[i];
+  }
+
+}
+
+bool readHallEffectSensor(uint8_t boardIndex){
+
+    bool pieceDetected = false;
 
     // Look up where we are
     MuxChannelMap HESensor = hallEffectLookupTable[boardIndex];
@@ -46,10 +57,13 @@ float readHallEffectSensor(uint8_t boardIndex){
     // Read from sensor
     float sensorValue = getSensorValue();
 
+    // filter and determine from voltage if we're sensing a magnetic field from a piece
+
     // disable mux before leaving
     digitalWrite(muxEnablePins[mux], HIGH);
 
-    return sensorValue;
+
+    return pieceDetected;
 
 }
 

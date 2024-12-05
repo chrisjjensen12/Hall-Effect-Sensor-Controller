@@ -19,3 +19,5 @@ MuxChannelMap hallEffectLookupTable[64] = {
   {2, 12}, {2, 13}, {2, 14}, {2, 15},
   {3, 12}, {3, 13}, {3, 14}, {3, 15}
 };
+
+Tile chessBoard[64];
