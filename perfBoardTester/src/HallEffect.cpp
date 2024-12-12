@@ -1,4 +1,5 @@
 #include "../include/HallEffect.h" 
+#include "../include/Leds.h" 
 
 // Mux enable pins
 const int muxEnablePins[4] = {9, 8, 7, 6};
@@ -32,7 +33,9 @@ void initHallEffect(void){
 void readBoardState(void){
 
   for(int i = 0; i < NUM_HALL_EFFECT_SENSORS; i++){
-    chessBoard[i].pieceDetected = readHallEffectSensor[i];
+    bool status = readHallEffectSensor[i];
+    chessBoard[i].pieceDetected = status;
+    toggleLed(i, status);
   }
 
 }
@@ -42,9 +45,9 @@ bool readHallEffectSensor(uint8_t boardIndex){
     bool pieceDetected = false;
 
     // Look up where we are
-    MuxChannelMap HESensor = hallEffectLookupTable[boardIndex];
-    uint8_t mux = HESensor.muxID;
-    uint8_t channel = HESensor.channelID;
+    TileInfo tile = TileLookupTable[boardIndex];
+    uint8_t mux = tile.heSensorMuxID;
+    uint8_t channel = tile.heSensorChannelID;
 
     // Enable mux for this sensor to read from it
     digitalWrite(muxEnablePins[mux], LOW); // low enables selected mux

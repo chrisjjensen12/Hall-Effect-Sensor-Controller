@@ -8,21 +8,22 @@
 /////////////////////////////////////////////////// Structures
 
 typedef struct {
-    uint8_t muxID;
-    uint8_t channelID;
-} MuxChannelMap;
+    uint8_t heSensorMuxID; // Hall effect sensor mux ID
+    uint8_t heSensorChannelID; // Hall effect sensor channel for mux
+    uint8_t ledAddress; // LED address 
+} TileInfo;
 
 typedef struct {
     bool pieceDetected;
-} Tile;
+} TileState;
 
 /////////////////////////////////////////////////// Variables
 
 // Lookup table for sensor # to mux/channel
-extern MuxChannelMap hallEffectLookupTable[64];
+extern TileInfo TileLookupTable[64];
 
 // Board made of tiles
-extern Tile chessBoard[64];
+extern TileState chessBoard[64];
 
 
 #endif // GLOBALS_H
