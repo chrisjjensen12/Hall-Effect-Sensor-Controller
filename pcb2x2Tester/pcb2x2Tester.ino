@@ -16,7 +16,9 @@ void loop() {
 
   readBoardState();
 
-  printChessBoard();
+  // light up corresponding LED instead
+
+  //printChessBoard();
 
   delay(1000);
 
