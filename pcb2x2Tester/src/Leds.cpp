@@ -23,4 +23,6 @@ void toggleLed(uint8_t boardIndex, bool onOff){
         strip.setPixelColor(ledAddress, strip.Color(0, 0, 0)); // Off
     }
 
+    strip.show();
+
 }

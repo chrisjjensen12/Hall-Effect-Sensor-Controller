@@ -10,6 +10,11 @@ void setup() {
   initHallEffect();
   initLeds();
 
+  // toggleLed(0, true);
+  // toggleLed(1, true);
+  // toggleLed(2, true);
+  // toggleLed(3, true);
+
 }
 
 void loop() {
@@ -19,8 +24,6 @@ void loop() {
   // light up corresponding LED instead
 
   //printChessBoard();
-
-  delay(1000);
 
 }
 

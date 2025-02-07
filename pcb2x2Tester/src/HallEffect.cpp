@@ -1,10 +1,10 @@
 #include "../include/HallEffect.h" 
 #include "../include/Leds.h" 
 
-// Mux enable pins
+// Mux enable pins E0, E1, E2, E3
 const int muxEnablePins[4] = {9, 8, 7, 6};
 
-// Address pins
+// Address pins S0, S1, S2, S3
 const int addressPins[4] = {10, 11, 12, 13};
 
 // "Sig" pin which is where the sensor's value will come in on
@@ -33,9 +33,10 @@ void initHallEffect(void){
 void readBoardState(void){
 
   for(int i = 0; i < NUM_TILES; i++){
-    bool status = readHallEffectSensor[i];
+    bool status = readHallEffectSensor(i);
     chessBoard[i].pieceDetected = status;
     toggleLed(i, status);
+    delay(5);
   }
 
 }
@@ -61,6 +62,14 @@ bool readHallEffectSensor(uint8_t boardIndex){
     float sensorValue = getSensorValue();
 
     // filter and determine from voltage if we're sensing a magnetic field from a piece
+    if(sensorValue > 2.52){
+      pieceDetected = true;
+    }
+
+    // Serial.print("Square ");
+    // Serial.print(boardIndex);
+    // Serial.print(": Voltage : ");
+    // Serial.println(sensorValue);
 
     // disable mux before leaving
     digitalWrite(muxEnablePins[mux], HIGH);
@@ -88,6 +97,11 @@ float getSensorValue(void){
 
   // Convert the averaged analog value to voltage (assuming 5V system)
   float voltage = sensorValue * (5.0 / 1023.0);
+
+  // Serial.print("Analog Value: ");
+  // Serial.print(sensorValue);
+  // Serial.print(" Voltage Value: ");
+  // Serial.println(voltage);
 
   return voltage;
 
