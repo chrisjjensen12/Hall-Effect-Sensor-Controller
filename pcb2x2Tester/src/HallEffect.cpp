@@ -32,7 +32,31 @@ void initHallEffect(void){
 // reads the sensor state of the entire board 0-63
 void readBoardState(void){
 
-  for(int i = 0; i < NUM_TILES; i++){
+  // for(int i = 0; i < NUM_TILES; i++){
+  //   bool status = readHallEffectSensor(i);
+  //   chessBoard[i].pieceDetected = status;
+  //   toggleLed(i, status);
+  //   delay(1000);
+  // }
+
+  // Go by board for now
+  // Board 0 
+  readBoard(0);
+  
+  // Board 1 
+  readBoard(1);
+
+}
+
+void readBoard(uint8_t boardNum){
+
+  uint8_t startIndex = boardNum * 4;
+  
+  // Serial.print("Board ");
+  // Serial.print(boardNum);
+  // Serial.println(": ");
+
+  for(uint8_t i = startIndex; i < (startIndex+4); i++){
     bool status = readHallEffectSensor(i);
     chessBoard[i].pieceDetected = status;
     toggleLed(i, status);
